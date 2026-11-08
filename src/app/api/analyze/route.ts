@@ -1,7 +1,8 @@
 import { analyzeLease, InputError } from "@/lib/analyze";
 import { ExtractionError, extractPdfText, MAX_PDF_BYTES } from "@/lib/pdf";
 
-export const runtime = "nodejs";
+// Route handlers run on the Node.js runtime by default, which unpdf and the
+// Anthropic SDK need. The AI pass can take a while on long leases.
 export const maxDuration = 120;
 
 function error(status: number, message: string) {
