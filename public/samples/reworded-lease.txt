@@ -1,0 +1,19 @@
+APARTMENT RENTAL CONTRACT
+
+Between Harbor View Management ("Management") and Resident. Sample document for testing ClauseCheck. It deliberately words problem clauses in unusual ways, so simple keyword matching misses them.
+
+1. PAYMENT. Resident pays $990 on the first of every month.
+
+2. MOVING OUT EARLY. Should Resident leave before the end date, every remaining monthly payment through the end date is owed to Management right away, and Management need not look for a replacement resident.
+
+3. ACCESS. If Resident is more than a week behind on payment, Management may deny Resident access to the apartment until the balance is cleared.
+
+4. INJURIES. Resident releases Management from responsibility for any harm suffered by Resident or guests anywhere on the property, even if Management caused it through carelessness.
+
+5. ENFORCEMENT COSTS. Any expense Management pays a lawyer to enforce this contract will be added to Resident's account.
+
+6. DEPOSIT. The deposit is returned within 21 days after Resident moves out, less lawful deductions.
+
+7. MAINTENANCE. Resident agrees to take the apartment in its current condition and to handle and pay for every repair the apartment needs while Resident lives there.
+
+8. NOISE. Quiet hours are 10 p.m. to 7 a.m.

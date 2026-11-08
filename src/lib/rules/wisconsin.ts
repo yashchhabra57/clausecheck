@@ -268,10 +268,15 @@ export const WISCONSIN_RULES: Rule[] = [
     tenantAction:
       "Take dated photos at move-in and move-out. Dispute any deduction for ordinary wear in writing.",
     detect: (t) =>
-      firstMatch(t, [
-        /(?:deduct|withhold|charge)[^.]{0,80}(?:normal|ordinary|reasonable)\s+wear\s+and\s+tear/i,
-        /(?:normal|ordinary)\s+wear\s+and\s+tear[^.]{0,60}(?:will|shall|may)\s+be\s+(?:deducted|charged|withheld)/i,
-      ]),
+      firstMatch(
+        t,
+        [
+          /(?:deduct|withhold|charge)[^.]{0,80}(?:normal|ordinary|reasonable)\s+wear\s+and\s+tear/i,
+          /(?:normal|ordinary)\s+wear\s+and\s+tear[^.]{0,60}(?:will|shall|may)\s+be\s+(?:deducted|charged|withheld)/i,
+        ],
+        // "damage beyond normal wear and tear" is the lawful standard, not a violation.
+        [/(?:beyond|except|other than|excluding|not including)\s+(?:normal|ordinary|reasonable)\s+wear/i],
+      ),
   },
   {
     id: "wi-automatic-deposit-deduction",
