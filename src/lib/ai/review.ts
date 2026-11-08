@@ -8,7 +8,7 @@ import type { Clause, Finding } from "../types";
  * Second-pass reviewer.
  *
  * The regex rules are precise but miss paraphrased clauses. This pass asks
- * Claude to review every clause against the same rule catalog and return
+ * an LLM to review every clause against the same rule catalog and return
  * structured findings. Each finding must quote the clause verbatim, and any
  * quote that can't be found in the clause is discarded. That grounding check
  * keeps the model from inventing problems the lease doesn't contain.
@@ -137,8 +137,8 @@ export type ReviewResult =
   | { ok: true; summary: string; findings: Finding[]; dropped: number }
   | { ok: false; note: string };
 
-/** Call Claude to review the clauses. Never throws; failures come back as a note. */
-export async function reviewWithClaude(
+/** Call the AI reviewer. Never throws; failures come back as a note. */
+export async function reviewWithAi(
   clauses: Clause[],
   client: Anthropic = new Anthropic(),
 ): Promise<ReviewResult> {

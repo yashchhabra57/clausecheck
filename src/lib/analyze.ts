@@ -1,5 +1,5 @@
 import type Anthropic from "@anthropic-ai/sdk";
-import { mergeFindings, reviewWithClaude } from "./ai/review";
+import { mergeFindings, reviewWithAi } from "./ai/review";
 import { runRules, scoreFindings, sortFindings } from "./engine";
 import { normalizeText, segmentClauses } from "./segment";
 import type { AnalysisResult } from "./types";
@@ -8,7 +8,7 @@ export const MAX_TEXT_CHARS = 200_000;
 export const MIN_TEXT_CHARS = 200;
 
 export interface AnalyzeOptions {
-  /** Run the Claude review pass. Defaults to true when an API key is set. */
+  /** Run the AI review pass. Defaults to true when an API key is set. */
   useAi?: boolean;
   pageCount?: number | null;
   /** Injected for tests. */
@@ -54,7 +54,7 @@ export async function analyzeLease(
   let aiNote: string | null = null;
 
   if (wantAi && (options.client || aiAvailable())) {
-    const review = await reviewWithClaude(clauses, options.client);
+    const review = await reviewWithAi(clauses, options.client);
     if (review.ok) {
       findings = sortFindings(mergeFindings(ruleFindings, review.findings), clauses);
       summary = review.summary;

@@ -2,7 +2,7 @@ import type Anthropic from "@anthropic-ai/sdk";
 import { describe, expect, it, vi } from "vitest";
 import { runRules } from "../engine";
 import { normalizeText, segmentClauses } from "../segment";
-import { isGrounded, mergeFindings, reviewWithClaude, toFindings } from "./review";
+import { isGrounded, mergeFindings, reviewWithAi, toFindings } from "./review";
 
 const clauses = segmentClauses(
   normalizeText(`1. DEFAULT. Should Tenant default, Landlord may collect every remaining monthly payment for the rest of the term right away.
@@ -102,7 +102,7 @@ function fakeClient(parse: (...args: unknown[]) => unknown): Anthropic {
   return { beta: { messages: { parse: vi.fn(parse) } } } as unknown as Anthropic;
 }
 
-describe("reviewWithClaude", () => {
+describe("reviewWithAi", () => {
   it("returns grounded findings from a parsed response", async () => {
     const client = fakeClient(async () => ({
       stop_reason: "end_turn",
@@ -113,13 +113,13 @@ describe("reviewWithClaude", () => {
         ],
       },
     }));
-    const result = await reviewWithClaude(clauses, client);
+    const result = await reviewWithAi(clauses, client);
     expect(result).toMatchObject({ ok: true, summary: "One big problem.", dropped: 0 });
   });
 
   it("degrades gracefully on refusal", async () => {
     const client = fakeClient(async () => ({ stop_reason: "refusal", parsed_output: null }));
-    const result = await reviewWithClaude(clauses, client);
+    const result = await reviewWithAi(clauses, client);
     expect(result.ok).toBe(false);
   });
 
@@ -127,6 +127,6 @@ describe("reviewWithClaude", () => {
     const client = fakeClient(async () => {
       throw new Error("boom");
     });
-    await expect(reviewWithClaude(clauses, client)).resolves.toMatchObject({ ok: false });
+    await expect(reviewWithAi(clauses, client)).resolves.toMatchObject({ ok: false });
   });
 });

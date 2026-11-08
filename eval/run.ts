@@ -2,7 +2,7 @@
  * Accuracy eval for ClauseCheck.
  *
  *   npm run eval                 # rule engine only (free, deterministic)
- *   npm run eval -- --ai         # rules + Claude review (needs ANTHROPIC_API_KEY)
+ *   npm run eval -- --ai         # rules + AI review (needs ANTHROPIC_API_KEY)
  *   npm run eval -- --min-precision 0.9 --min-recall 0.6   # fail CI below thresholds
  *
  * Compares findings on each sample lease against the hand labels in
@@ -99,7 +99,7 @@ async function main() {
   const recall = ratio(tp, tp + fn);
   const f1 = precision + recall === 0 ? 0 : (2 * precision * recall) / (precision + recall);
 
-  console.log(`\nClauseCheck eval (${useAi ? "rules + Claude review" : "rules only"})\n`);
+  console.log(`\nClauseCheck eval (${useAi ? "rules + AI review" : "rules only"})\n`);
   console.log("| Lease | TP | FP | FN | Precision | Recall | Extra AI flags |");
   console.log("|---|---|---|---|---|---|---|");
   for (const s of scores) {

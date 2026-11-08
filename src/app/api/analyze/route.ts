@@ -6,7 +6,7 @@ import { clientKey, createRateLimiter } from "@/lib/rate-limit";
 const checkRate = createRateLimiter({ limit: 10, windowMs: 60_000 });
 
 // Route handlers run on the Node.js runtime by default, which unpdf and the
-// Anthropic SDK need. The AI pass can take a while on long leases.
+// AI SDK need. The AI pass can take a while on long leases.
 export const maxDuration = 120;
 
 function error(status: number, message: string) {
