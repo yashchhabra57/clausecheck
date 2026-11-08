@@ -1,5 +1,9 @@
 import { analyzeLease, InputError } from "@/lib/analyze";
 import { ExtractionError, extractPdfText, MAX_PDF_BYTES } from "@/lib/pdf";
+import { clientKey, createRateLimiter } from "@/lib/rate-limit";
+
+// 10 analyses per minute per client keeps the AI bill predictable.
+const checkRate = createRateLimiter({ limit: 10, windowMs: 60_000 });
 
 // Route handlers run on the Node.js runtime by default, which unpdf and the
 // Anthropic SDK need. The AI pass can take a while on long leases.
@@ -17,6 +21,14 @@ function error(status: number, message: string) {
  *   - application/json `{ "text": "...", "useAi": true }`
  */
 export async function POST(request: Request) {
+  const limit = checkRate(clientKey(request));
+  if (!limit.allowed) {
+    return Response.json(
+      { error: `Too many requests. Try again in ${limit.retryAfter} seconds.` },
+      { status: 429, headers: { "Retry-After": String(limit.retryAfter) } },
+    );
+  }
+
   const contentType = request.headers.get("content-type") ?? "";
 
   let text: string;
