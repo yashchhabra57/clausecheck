@@ -1,0 +1,30 @@
+{
+  "$comment": "Hand-labeled expected findings for each sample lease. A finding counts as a true positive when its ruleId matches and its clause text contains `clause`. AI-only 'ai:other' findings are reported but not scored.",
+  "predatory-lease.txt": [
+    { "ruleId": "wi-deposit-return-deadline", "clause": "within 45 days" },
+    { "ruleId": "wi-automatic-deposit-deduction", "clause": "carpet cleaning fee" },
+    { "ruleId": "wi-deposit-normal-wear", "clause": "carpet cleaning fee" },
+    { "ruleId": "wi-rent-acceleration", "clause": "DEFAULT AND ACCELERATION" },
+    { "ruleId": "wi-self-help-eviction", "clause": "LANDLORD REMEDIES" },
+    { "ruleId": "wi-attorney-fees", "clause": "7. ATTORNEY FEES" },
+    { "ruleId": "wi-confession-of-judgment", "clause": "8. CONFESSION OF JUDGMENT" },
+    { "ruleId": "wi-habitability-waiver", "clause": "CONDITION OF PREMISES" },
+    { "ruleId": "wi-negligence-waiver", "clause": "10. LIABILITY" },
+    { "ruleId": "wi-tenant-liable-beyond-control", "clause": "11. DAMAGE" },
+    { "ruleId": "wi-crime-victim-termination", "clause": "CRIMINAL ACTIVITY" },
+    { "ruleId": "wi-retaliation", "clause": "15. COMPLAINTS" }
+  ],
+  "fair-lease.txt": [],
+  "student-house-lease.txt": [
+    { "ruleId": "wi-deposit-return-deadline", "clause": "Section 3. Deposit" },
+    { "ruleId": "wi-automatic-deposit-deduction", "clause": "Section 3. Deposit" },
+    { "ruleId": "wi-attorney-fees", "clause": "Section 5. Legal Costs" }
+  ],
+  "reworded-lease.txt": [
+    { "ruleId": "wi-rent-acceleration", "clause": "MOVING OUT EARLY" },
+    { "ruleId": "wi-self-help-eviction", "clause": "3. ACCESS" },
+    { "ruleId": "wi-negligence-waiver", "clause": "4. INJURIES" },
+    { "ruleId": "wi-attorney-fees", "clause": "ENFORCEMENT COSTS" },
+    { "ruleId": "wi-habitability-waiver", "clause": "7. MAINTENANCE" }
+  ]
+}
