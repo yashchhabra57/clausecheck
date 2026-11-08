@@ -43,6 +43,18 @@ Section 5. Tenant may not sublet.`);
     expect(clauses[0].text).toContain("A late fee of $50");
   });
 
+  it("keeps a document title separate from section 1", () => {
+    const text = normalizeText(`RESIDENTIAL LEASE
+1. RENT. Tenant shall pay $900 per month.
+2. DEPOSIT. The deposit is $900.`);
+    const clauses = segmentClauses(text);
+    expect(clauses.map((c) => c.heading)).toEqual([
+      "RESIDENTIAL LEASE",
+      "1. RENT",
+      "2. DEPOSIT",
+    ]);
+  });
+
   it("falls back to paragraphs when there are no headings", () => {
     const text = normalizeText(
       "Tenant pays rent monthly.\n\nLandlord handles repairs.\n\nNo smoking indoors.",

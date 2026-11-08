@@ -10,7 +10,8 @@ const LEASE = `RESIDENTIAL LEASE
 describe("analyzeLease", () => {
   it("runs the rule pipeline end to end without AI", async () => {
     const result = await analyzeLease(LEASE, { useAi: false });
-    expect(result.clauses.length).toBe(4);
+    // Title + 4 numbered sections.
+    expect(result.clauses.length).toBe(5);
     expect(result.findings.map((f) => f.ruleId)).toEqual([
       "wi-confession-of-judgment",
       "wi-deposit-return-deadline",

@@ -114,7 +114,10 @@ export function segmentClauses(text: string): Clause[] {
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
     const next = blocks[i + 1];
-    if (next && b.lines.length === 1 && isHeadingOnly(b.lines[0])) {
+    // A document title ("RESIDENTIAL LEASE") directly above section 1 stays on
+    // its own so section 1 keeps its real heading.
+    const isDocTitle = i === 0 && next && NUMBERED_HEADING.test(next.lines[0]);
+    if (next && !isDocTitle && b.lines.length === 1 && isHeadingOnly(b.lines[0])) {
       next.lines.unshift(...b.lines);
       next.start = b.start;
       continue;
